@@ -1,0 +1,5 @@
+{
+  "inputs": ["A", "B"],
+  "gates": [{"id": "nand", "symbol": "&", "inputs": ["A", "B"], "output_bubble": true}],
+  "output": "nand"
+}

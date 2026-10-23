@@ -1,0 +1,48 @@
+{
+  "inputs": [
+    "A",
+    "B"
+  ],
+  "gates": [
+    {
+      "id": "g1",
+      "type": "NOT",
+      "inputs": [
+        "B"
+      ]
+    },
+    {
+      "id": "g2",
+      "type": "AND",
+      "inputs": [
+        "A",
+        "g1"
+      ]
+    }
+  ],
+  "output": "g2",
+  "photo_annotation": {
+    "source_image": "asymmetric_photo.png",
+    "sha256": "af65af01b3217b50dd4e6bc0524e03450a7b5e0f5924a93b636945644516d418",
+    "normalized_xy": {
+      "A": [
+        95.5,
+        325.0
+      ],
+      "B": [
+        95.5,
+        666.7
+      ],
+      "g1": [
+        397.3,
+        666.7
+      ],
+      "g2": [
+        672.7,
+        441.7
+      ]
+    },
+    "annotation_method": "manual",
+    "reviewed": true
+  }
+}

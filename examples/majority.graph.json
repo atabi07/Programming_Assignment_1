@@ -1,0 +1,10 @@
+{
+  "inputs": ["A", "B", "C"],
+  "gates": [
+    {"id": "ab", "type": "AND", "inputs": ["A", "B"]},
+    {"id": "ac", "type": "AND", "inputs": ["A", "C"]},
+    {"id": "bc", "type": "AND", "inputs": ["B", "C"]},
+    {"id": "majority", "type": "OR", "inputs": ["ab", "ac", "bc"]}
+  ],
+  "output": "majority"
+}

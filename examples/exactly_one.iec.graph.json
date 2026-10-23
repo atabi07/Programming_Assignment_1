@@ -1,0 +1,5 @@
+{
+  "inputs": ["A", "B", "C"],
+  "gates": [{"id": "single", "symbol": "=1", "inputs": ["A", "B", "C"]}],
+  "output": "single"
+}

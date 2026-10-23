@@ -1,0 +1,8 @@
+{
+  "inputs": ["A", "B", "C"],
+  "gates": [
+    {"id": "not_b", "type": "NOT", "inputs": ["B"]},
+    {"id": "a_and_not_b", "type": "AND", "inputs": ["A", "not_b"]}
+  ],
+  "output": "a_and_not_b"
+}

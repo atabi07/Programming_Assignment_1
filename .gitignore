@@ -1,0 +1,10 @@
+# Generated simulations, Verilog netlists, reports, waveforms, Vivado builds
+/output/
+/build/
+*.vvp
+*.vcd
+.Xil/
+*.jou
+*.log
+vivado*/
+__pycache__/

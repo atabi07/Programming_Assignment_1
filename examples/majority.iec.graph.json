@@ -1,0 +1,10 @@
+{
+  "inputs": ["A", "B", "C"],
+  "gates": [
+    {"id": "ab", "symbol": "&", "inputs": ["A", "B"]},
+    {"id": "ac", "symbol": "∧", "inputs": ["A", "C"]},
+    {"id": "bc", "symbol": "&", "inputs": ["B", "C"]},
+    {"id": "y", "symbol": "≥1", "inputs": ["ab", "ac", "bc"]}
+  ],
+  "output": "y"
+}

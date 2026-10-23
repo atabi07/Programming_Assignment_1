@@ -1,0 +1,8 @@
+{
+  "inputs": ["A", "B", "C", "D"],
+  "gates": [
+    {"id": "x", "type": "XOR", "inputs": ["A", "B", "C", "D"]},
+    {"id": "n", "type": "NOT", "inputs": ["x"]}
+  ],
+  "output": "n"
+}
