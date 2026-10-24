@@ -1,0 +1,9 @@
+{
+  "inputs": ["A", "B", "C", "D"],
+  "gates": [
+    {"id": "hi_eq", "type": "XNOR", "inputs": ["A", "C"]},
+    {"id": "lo_eq", "type": "XNOR", "inputs": ["B", "D"]},
+    {"id": "out",   "type": "AND",  "inputs": ["hi_eq", "lo_eq"]}
+  ],
+  "output": "out"
+}

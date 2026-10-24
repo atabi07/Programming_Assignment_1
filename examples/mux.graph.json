@@ -1,0 +1,10 @@
+{
+  "inputs": ["A", "B", "C"],
+  "gates": [
+    {"id": "nC",  "type": "NOT", "inputs": ["C"]},
+    {"id": "selA", "type": "AND", "inputs": ["A", "nC"]},
+    {"id": "selB", "type": "AND", "inputs": ["B", "C"]},
+    {"id": "out", "type": "OR",  "inputs": ["selA", "selB"]}
+  ],
+  "output": "out"
+}
