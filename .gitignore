@@ -8,3 +8,4 @@
 *.log
 vivado*/
 __pycache__/
+demo_info.md

@@ -32,6 +32,12 @@ python --version
 iverilog -V
 vvp -V
 ```
+### Installing Icarus Verilog on Windows (via MSYS2)
+1. Install MSYS2 from msys2.org (default folder C:\msys64).
+2. In the MSYS2 terminal: `pacman -S mingw-w64-ucrt-x86_64-iverilog`
+3. In Git Bash, add it to PATH:
+   `echo 'export PATH="/c/msys64/ucrt64/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc`
+4. Check: `iverilog -V` and `vvp -V`
 
 ## Quick start on Windows (PowerShell)
 
@@ -119,6 +125,23 @@ output/majority_graph_json/
 ```
 
 A `PASS: all 8 generated-netlist combinations` means the **generated Verilog was verified against all 8 Boolean input combinations in simulation**. `$finish called at ...` only means the simulation ended. Neither output proves hardware programming.
+
+## Architecture / data flow
+
+    input file (.sop / .json / .expr / .circ / photo)
+            |
+    scripts/run.py  -- validates input; non-SOP inputs are evaluated to a
+            |          truth table and written as canonical SOP minterms
+            v
+    src/logic_engine_tb.sv (Icarus)  -- parses SOP -> truth table,
+            |          minimizes ON-set (SOP) and OFF-set (POS),
+            |          prints commands 1-12, self-checks SOP = POS = truth,
+            |          writes minimized_logic.v + nexys_top.v
+            v
+    tests/tb_generated.sv (Icarus)  -- simulates the generated netlist on
+            |          every input vs. a truth vector computed in Python
+            v
+    Vivado  -- minimized_logic.v + wrapper + XDC -> bitstream -> Nexys A7
 
 ## NEW: Photo-to-circuit input (PNG, JPG, JPEG, WEBP, BMP)
 
@@ -367,9 +390,17 @@ Optional Vivado batch build (generates a `.bit` without programming hardware):
 vivado -mode batch -source scripts/build_bitstream.tcl -tclargs output/majority_sop
 ```
 
-This step has **not** been run or validated in Vivado in the provided environment. The physical board **has not** been programmed or tested by this project yet.
+Tested on a Nexys A7-100T in Vivado: majority.sop (3 inputs) and big4.sop
+(4 inputs) were synthesized, programmed, and verified on all switch combinations.
 
 Pin locations in `constraints/nexys_a7_100t.xdc` correspond to Digilent's [Nexys A7-100T Master XDC](https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-100T-Master.xdc).
+
+## Demo wrapper (hand-written)
+fpga/nexys_demo_top.v + constraints/nexys_demo.xdc connect the generated
+minimized_logic module to: SW0-SW3 (A-D), LED0 (F), RGB LED16 (green = 1,
+red = 0), and the 7-segment display (right digit = row number in hex with
+A as MSB; left digit = F). Set parameter N and the instantiation line to
+match the number of inputs.
 
 ## Known limitations and AI attribution
 
