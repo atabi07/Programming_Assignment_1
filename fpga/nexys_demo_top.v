@@ -7,7 +7,7 @@
 //   7-seg left    -> value of Y (1 or 0)
 // minimized_logic itself is NOT modified; this file only wires it to pins.
 module nexys_demo_top #(
-    parameter N = 3                      // number of inputs: 2, 3, or 4
+    parameter N = 4                      // number of inputs: 2, 3, or 4
 ) (
     input  wire       CLK100MHZ,
     input  wire [3:0] SW,
@@ -25,8 +25,7 @@ module nexys_demo_top #(
     //   N = 2: .A(SW[0]), .B(SW[1]),                         .Y(y)
     //   N = 3: .A(SW[0]), .B(SW[1]), .C(SW[2]),              .Y(y)
     //   N = 4: .A(SW[0]), .B(SW[1]), .C(SW[2]), .D(SW[3]),   .Y(y)
-    minimized_logic circuit (.A(SW[0]), .B(SW[1]), .C(SW[2]), .Y(y));
-
+    minimized_logic circuit (.A(SW[0]), .B(SW[1]), .C(SW[2]), .D(SW[3]), .Y(y));
     // Row number in truth-table order: A is the most significant bit.
     wire [3:0] row = (N == 4) ? {SW[0], SW[1], SW[2], SW[3]} :
                      (N == 3) ? {1'b0,  SW[0], SW[1], SW[2]} :
