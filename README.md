@@ -85,6 +85,8 @@ All commands also accept `--output-dir C:/some/folder`. Use `--no-simulate` to s
 ## File structure
 
 ```text
+fpga/nexys_demo_top.v              Hand-written demo wrapper (switches, LED0, RGB LED, 7-seg)
+constraints/nexys_demo.xdc         Pin constraints for the demo wrapper
 src/logic_engine_tb.sv             SystemVerilog optimization engine / generator
 scripts/run.py                     Input router + CLI + report orchestration
 scripts/symbolic_inputs.py         Mathematical-operator expression parser + symbol aliases
@@ -124,8 +126,7 @@ output/majority_graph_json/
     work/nettest.vvp               Compiled generated-netlist simulation
 ```
 
-A `PASS: all 8 generated-netlist combinations` means the **generated Verilog was verified against all 8 Boolean input combinations in simulation**. `$finish called at ...` only means the simulation ended. Neither output proves hardware programming.
-
+A `PASS: all 2^n generated-netlist combinations` (for example, 8 for 3 inputs or 16 for 4)
 ## Architecture / data flow
 
     input file (.sop / .json / .expr / .circ / photo)
@@ -332,9 +333,7 @@ Example:
 python scripts/run.py --input examples/asymmetric.logisim.circ
 ```
 
-**Not supported:** general JPG/PNG screenshots, arbitrary PDFs, unstructured
-SVG vector art, or hand-drawn circuit recognition. Those require a separate
-computer-vision/wire-reconstruction pipeline, and should be verified visually.
+**Not supported by the Logisim importer:** general JPG/PNG screenshots, ...
 
 ## Individually selectable commands
 
@@ -407,5 +406,5 @@ match the number of inputs.
 - Exact exhaustive prime-implicant subset enumeration scales poorly; limited to 2–4 inputs. More scalable methods (e.g. Espresso or Quine–McCluskey with scalable covering) would be needed for many variables.
 - One Boolean output only; no truth-table don't-cares, sequential gates, clocked behavior, or timing/power optimization. Logisim importer supports only the stated subset.
 - Individual commands are **CLI-selectable**, not a live interactive GUI.
-- Parser unit tests were run in the preparation environment. Icarus HDL compilation/simulation and Vivado FPGA deployment **must be run locally** (no simulators/hardware were available to the assistant).
+- Parser unit tests were run in the preparation environment. Icarus simulation and Vivado FPGA deployment were then run locally and verified on a Nexys A7-100T.
 - **Generative AI use:** Architecture and source code developed with ChatGPT (OpenAI), October 2026. EC551 requires citing AI assistance and being able to explain and defend the algorithms and architecture during the demo.
